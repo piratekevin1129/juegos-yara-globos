@@ -4,7 +4,7 @@ var limit_score = 100
 var total_attemps = 1
 var tiempo_anterior = 0//en segundos
 var tiempos = []
-var name_game = 'Concéntrese'
+var name_game = 'Globos'
 
 var tiempo_anterior_txt = document.getElementById('tiempo-msg-relojito-record')
 //var intentos_txt = document.getElementById('intentos-txt')
@@ -50,23 +50,23 @@ function getScorm(){
 		var mejor = 0
 		var menor = -1
 		if(tiempos.length>0){
-			mejor = tiempos[0].seg 
+			mejor = tiempos[0].scor 
 			menor = 0
 			for(var m = 0;m<tiempos.length;m++){
-				if(tiempos[m].seg<mejor){
-					mejor = tiempos[m].seg
+				if(tiempos[m].scor>mejor){
+					mejor = tiempos[m].scor
 					menor = m
 				}
 			}
 		} 
         if(menor!=-1){
-            tiempo_anterior = tiempos[menor].seg
+            tiempo_anterior = tiempos[menor].scor
         }
 	}else{
 		console.log("no definida suspend data")
 	}
 
-	tiempo_anterior_txt.innerHTML = 'Mejor puntaje - '+getTimeText(tiempo_anterior)
+	tiempo_anterior_txt.innerHTML = 'Mejor puntaje - '+tiempo_anterior
     //intentos_txt.innerHTML = 'Intento #'+total_attemps
     console.log('Intento #'+total_attemps)
 	startGame()
@@ -103,7 +103,7 @@ function guardarScorm(finish){
 }
 
 function prepareSaveScorm(){
-	tiempos.push({seg:segundos,txt:renderTime()})
+	tiempos.push({seg:segundos,txt:renderTime(),scor:puntos})
 	var preparar_data = {
 		tiempos:tiempos,
         total_attemps:total_attemps,

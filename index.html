@@ -11,32 +11,41 @@
 
     <script language="javascript" src="public/assets/js/scormfunctions.js"></script>
 </head>
-<!--<body onbeforeunload="doUnload(false);" onunload="doUnload();">-->
-<body>
+
+<body onbeforeunload="doUnload(false);" onunload="doUnload();">
 <div id="container">
     <div id="logo1"></div>
     <div id="logo2"></div>
 
     <h1 id="title">Concentración en tiempos de <span>COVID-19</span></h1>
 
-    <div id="juego-cont">
+    <div id="juego-cont" class="juego-escena1">
         <div id="nubes1-cont"></div>
         <div id="globos-cont"></div>
         <div id="nubes2-cont"></div>
         <div id="zonas-cont"></div>
+
+        <div id="fondo-cont" class="fondo-escena1">
+
+        </div>
     </div>
+    
 
     <div id="botones">
-        <div id="reload-btn-content">
+        <!--<div id="reload-btn-content">
             <button id="reload-btn" onclick="clickReorganizar()"></button>
         </div>
-        <!--<div id="help-btn-content">
+        <div id="help-btn-content">
             <button id="help-btn" onclick="clickInstrucciones(this)"></button>
         </div>-->
     </div>
 
     <div id="puntaje_cont">
         <p id="puntaje_txt">0</p>
+    </div>
+
+    <div id="mensaje" class="mensaje-off">
+        <p>El juego se terminó.</p>
     </div>
 
     <div id="tiempo-msg" class="tiempo-msg-off">
@@ -69,28 +78,33 @@
 
 <script>
     var explotar_mp3 = null
+    var ganar2_mp3 = null
     
     window.onload = function(){
-        //initScorm()
-        startGame()
+        initScorm()
+        //startGame()
     }
 
     var delay_animation = null
     function startGame(){
         setInstrucciones()
         loadAudio({src:'public/assets/sonidos/explotar.mp3',callBack:function(data){
-            setCargadorPercent(5)
+        setCargadorPercent(5)
+        explotar_mp3 = data
+        loadAudio({src:'public/assets/sonidos/ganar_2.mp3',callBack:function(data){
+        setCargadorPercent(10)
+        ganar2_mp3 = data
             
             loadImage({url:'public/assets/globos/cuerda1.png',callBack:function(){
-                setCargadorPercent(10)
+                setCargadorPercent(20)
                 loadImage({url:'public/assets/globos/cuerda2.png',callBack:function(){
-                    setCargadorPercent(20)
+                    setCargadorPercent(30)
                     loadImage({url:'public/assets/globos/virus1.png',callBack:function(){
-                        setCargadorPercent(30)
+                        setCargadorPercent(40)
                         loadImage({url:'public/assets/globos/virus2.png',callBack:function(){
-                            setCargadorPercent(40)
+                            setCargadorPercent(50)
                             loadImage({url:'public/assets/globos/normal1.png',callBack:function(){
-                                setCargadorPercent(50)
+                                setCargadorPercent(60)
                                 loadImage({url:'public/assets/globos/normal2.png',callBack:function(){
                                     setCargadorPercent(100)
                                                 
@@ -117,6 +131,7 @@
                     }})
                 }})
             }})
+        }})
         }})
     }
 </script>

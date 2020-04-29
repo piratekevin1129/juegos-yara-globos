@@ -6,16 +6,16 @@
     <schema>ADL SCORM</schema>
     <schemaversion>1.2</schemaversion>
   </metadata>
-  <organizations default="ORG-86300F1C2E8D24E7DA8849CAED7DC31C-juego-concentrese">
-    <organization identifier="ORG-86300F1C2E8D24E7DA8849CAED7DC31C-juego-concentrese" structure="hierarchical">
-      <title>Juego Yara - Concéntrese</title>
-      <item identifier="ITEM-194C180DD7B259431B3E15D68025267F-juego-concentrese" isvisible="true" identifierref="RES-CE89DE9F5D82508D397D1209AB586D6C-juego-concentrese">
-        <title>Juego Yara - Concéntrese</title>
+  <organizations default="ORG-86300F1C2E8D24E7DA8849CAED7DC31C-juego-globos">
+    <organization identifier="ORG-86300F1C2E8D24E7DA8849CAED7DC31C-juego-globos" structure="hierarchical">
+      <title>Juego Yara - Globos</title>
+      <item identifier="ITEM-194C180DD7B259431B3E15D68025267F-juego-globos" isvisible="true" identifierref="RES-CE89DE9F5D82508D397D1209AB586D6C-juego-globos">
+        <title>Juego Yara - Globos</title>
       </item>
     </organization>
   </organizations>
   <resources>
-    <resource identifier="RES-CE89DE9F5D82508D397D1209AB586D6C-juego-concentrese" type="webcontent" adlcp:scormtype="sco" href="index.html">
+    <resource identifier="RES-CE89DE9F5D82508D397D1209AB586D6C-juego-globos" type="webcontent" adlcp:scormtype="sco" href="index.html">
       <file href="index.html" />
       <file href="public/assets/js/scormfunctions.js" />
     </resource>

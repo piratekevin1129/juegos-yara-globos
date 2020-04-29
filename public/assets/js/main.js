@@ -22,7 +22,7 @@ var globos = []
 var zonas = []
 
 function setGame(){
-    for(i = 0;i<5;i++){
+    for(i = 0;i<10;i++){
         createNube(1)
     }
     for(i = 0;i<5;i++){
@@ -35,7 +35,7 @@ function setGame(){
 function createNube(t){
     var nube = document.createElement('div')
     nube.className = 'nube'+t
-    var y_nube = getRand(0,90)
+    var y_nube = getRand(0,100)
     var x_nube = getRand(0,game_width)
     if(t==1){
         nubes_cont1.appendChild(nube)
@@ -97,6 +97,7 @@ var animacion_globos = null
 var animacion_globos_sube = null
 var animacion_nubes = null
 var termino = false
+var terminado = false
 
 function comenzarJuego(){
     startTimer()
@@ -106,33 +107,41 @@ function comenzarJuego(){
     
     animacion_globo_sale = setInterval(function(){
         segundos_transcurridos++
-        if(segundos_transcurridos%10==0){
-            intervalo_globos-=300
-            if(intervalo_globos<200){
-                intervalo_globos = 200
+        if(segundos_transcurridos%5==0){
+            if(segundos_transcurridos<60){
+                intervalo_globos-=150
+                if(intervalo_globos<350){
+                    intervalo_globos = 350
+                }
+                //intervalo_subida+=0.2
+    
+                clearInterval(animacion_globos)
+                animacion_globos = setInterval(animacionGlobos,intervalo_globos)
+                console.log("subee")
+                //clearInterval(animacion_globos_sube)
+                //animacion_globos = setInterval(animacionGlobosSube,intervalo_globos)
             }
-            intervalo_subida++
-
-            clearInterval(animacion_globos)
-            animacion_globos = setInterval(animacionGlobos,intervalo_globos)
-            console.log("subee")
-            //clearInterval(animacion_globos_sube)
-            //animacion_globos = setInterval(animacionGlobosSube,intervalo_globos)            
+            else{
+                terminado = true
+            }
         }
-        if(segundos_transcurridos>=60){
+        if(segundos_transcurridos>=65){
             clearInterval(animacion_globo_sale)
             animacion_globo_sale = null
 
             clearInterval(animacion_globos)
             clearInterval(animacion_globos_sube)
-            clearInterval(animacion_nubes)
+            //clearInterval(animacion_nubes)
+            termino = true
             ganoJuego()
         }
     },1000)
 }
 
 function animacionGlobos(){
-    crearGlobo()
+    if(!terminado){
+        crearGlobo()
+    }
 }
 
 var correctos = 0
@@ -148,7 +157,7 @@ function animacionGlobosSube(){
             zonas[j].elemento.style.top = new_y_globo+'px'
 
             if(new_y_globo<(0-globo_height)){
-                if(globos[j].estado=='explotado'){
+                /*if(globos[j].estado=='explotado'){
                     if(globos[j].tipo==1){
                         puntos+=2
                     }
@@ -157,7 +166,7 @@ function animacionGlobosSube(){
                         puntos+=1
                     }
                 }
-                puntaje_txt.innerHTML = puntos
+                puntaje_txt.innerHTML = puntos*/
                 //console.log("quita 1")
                 globos_cont.removeChild(globos[j].elemento)
                 zonas_cont.removeChild(zonas[j].elemento)
@@ -201,6 +210,12 @@ function clickGlobo(zona,idname){
         }
 
         if(ind!=-1){
+            if(globos[ind].tipo==1){
+                puntos+=2
+            }else{
+                puntos--
+            }
+            puntaje_txt.innerHTML = puntos
             globos[ind].estado = 'explotado'
         }
     }
@@ -239,17 +254,25 @@ function clickInstrucciones(btn){
     },4000)
 }
 
+var juego_cont = document.getElementById('juego-cont')
+var fondo_cont = document.getElementById('fondo-cont')
 
 var gano_juego = false
 function ganoJuego(){
     guardarScorm(true)
     
     gano_juego = true
+    ganar2_mp3.currentTime = 0
+    ganar2_mp3.play()
     stopTimer()
     
     clearTimeout(animacion_instrucciones)
     animacion_instrucciones = null
-    instrucciones.className = 'instrucciones-off'
+    juego_cont.className = 'juego-escena2'
+    fondo_cont.className = 'fondo-escena2'
+
+    setMensaje()
+    /*instrucciones.className = 'instrucciones-off'
 
     animacion_instrucciones = setTimeout(function(){
         clearTimeout(animacion_instrucciones)
@@ -257,5 +280,26 @@ function ganoJuego(){
         
         instrucciones.innerHTML = '<p>Muy Bien! Tu tiempo es de '+renderTime()+'</p>'
         instrucciones.className = 'instrucciones-on'
-    },500)
+    },500)*/
+}
+
+var animacion_mensaje = null
+function setMensaje(fina){
+    var txt = 'El juego ha terminado!<br />Tu puntaje final fué de <span>'+puntos+'</span>'
+        
+    if(animacion_mensaje!=null){
+        clearTimeout(animacion_mensaje)
+        animacion_mensaje = null
+    }
+    var mensaje = document.getElementById('mensaje')
+    mensaje.innerHTML = '<p>'+txt+'</p>'
+    mensaje.className = 'mensaje-on'
+
+    /*animacion_mensaje = setTimeout(function(){
+        clearTimeout(animacion_mensaje)
+        animacion_mensaje = null
+        mensaje.className = 'mensaje-off'
+        
+    },4000)*/
+    
 }
