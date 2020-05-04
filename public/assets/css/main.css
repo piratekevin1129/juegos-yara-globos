@@ -1,3 +1,13 @@
+* {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
 html,body{
     width: 845px;
     height: 507px;
@@ -188,7 +198,6 @@ html,body{
     background: linear-gradient(top, #C6F2FC, #EEFBFF);
     background: -webkit-linear-gradient(top, #C6F2FC, #EEFBFF);
     background: -o-linear-gradient(top, #C6F2FC, #EEFBFF);
-
 }
 #nubes1-cont,
 #globos-cont,
@@ -485,7 +494,7 @@ html,body{
     left: 0px;
     width: 100%;
     height: 100%;
-    background-position: 20% bottom;
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-image: url(../images/fondo.png);
 

@@ -12,7 +12,6 @@ var globo_width = 84
 var globo_height = 217
 var cielo_height = 390
 
-
 var nubes = []
 var nubes_cont1 = document.getElementById('nubes1-cont')
 var nubes_cont2 = document.getElementById('nubes2-cont')
@@ -52,7 +51,13 @@ function crearGlobo(){
     var globo = document.createElement('div')
     var tipo = getRand(1,2)
     var color = getRand(1,2)
-    var x = getRand(40,(game_width-(globo_width+40)))
+    var x = 0
+    if(!ismobile){
+        x = getRand(40,(game_width-(globo_width+40)))
+    }else{
+        x = getRand(0,(game_width-globo_width))
+    }
+    
     var y = getRand(0,80)
 
     var html = ""
@@ -103,8 +108,10 @@ function comenzarJuego(){
     startTimer()
     animacion_globos = setInterval(animacionGlobos,intervalo_globos)
     animacion_globos_sube = setInterval(animacionGlobosSube, 25)
-    animacion_nubes = setInterval(animacionNubes,40)
-    
+    if(!ismobile){
+        animacion_nubes = setInterval(animacionNubes,40)
+    }
+        
     animacion_globo_sale = setInterval(function(){
         segundos_transcurridos++
         if(segundos_transcurridos%5==0){
